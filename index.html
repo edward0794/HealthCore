@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCore Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>HealthCore Dashboard</h1>
+        <p>Gestión de pacientes</p>
+    </header>
+
+    <main>
+        <section class="formulario">
+
+            <h2>Registrar Paciente</h2>
+
+            <form id="formPaciente">
+                <input
+                 type="text"
+                 id="nombre"
+                 placeholder="Nombre"
+                 required
+                >
+
+                <input
+                 type="number"
+                 id="edad"
+                 placeholder="Edad"
+                 required
+                 >
+
+                <input
+                 type="text"
+                 id="ciudad"
+                 placeholder="Ciudad"
+                 required
+                 >
+
+                 <label>
+                    <input
+                     type="checkbox"
+                     id="activo"
+                     checked
+                     >
+                     Paciente Activo
+                 </label>
+
+                 <button type="submit">
+                    Guardar paciente
+                 </button>
+            </form>
+
+        </section>
+
+        <section class="cards" id="cards">
+
+        </section>
+
+        <section class="tabla">
+            
+            <div class="filtros">
+                <button id="btnTodos">Todos</button>
+                <button id="btnActivos">Activos</button>
+                <button id="btnInactivos">Inactivos</button>
+            </div>
+
+            <input type="text"
+                   id="buscarPaciente"
+                   placeholder="Buscar Paciente..."
+            >
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Ciudad</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+
+                </thead>
+
+                <tbody id="tablaPacientes">
+                
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
