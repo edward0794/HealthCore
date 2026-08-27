@@ -84,7 +84,11 @@ const actualizarIndicadores = () => {
 
 //Tabla de pacientes
 
-const contenerdorTabla = document.getElementById("tablaPacientes");
+const contenedorTabla = document.getElementById("tablaPacientes");
+
+contenedorTabla.addEventListener("click", (e) => {
+    console.log(e.target.tagName);
+});
 
 const renderizarTabla = (listaPacientes) => {
     const htmlPacientes = listaPacientes
@@ -96,11 +100,16 @@ const renderizarTabla = (listaPacientes) => {
                 <td>${paciente.activo 
                     ? `<span class = "badge badge-activo">Activo</span>` 
                     : `<span class = "badge badge-inactivo">Inactivo</span>`}</td>
+                <td>
+                    <button data-id = "${paciente.id}">
+                        Eliminar
+                    </button>
+                </td>
             </tr>
         `)
         .join("");
 
-    contenerdorTabla.innerHTML = htmlPacientes;
+    contenedorTabla.innerHTML = htmlPacientes;
 };
 
 //Buscador
