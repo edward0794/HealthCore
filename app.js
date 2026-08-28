@@ -1,4 +1,4 @@
-const pacientes = [
+let pacientes = [
     {
         id: 1,
         nombre: "Juan Pérez",
@@ -87,7 +87,32 @@ const actualizarIndicadores = () => {
 const contenedorTabla = document.getElementById("tablaPacientes");
 
 contenedorTabla.addEventListener("click", (e) => {
-    console.log(e.target.tagName);
+
+    if (e.target.classList.contains("btn-editar")) {
+
+        const id = parseInt(e.target.dataset.id);
+        const paciente = pacientes.find(paciente => paciente.id === id);
+
+        nombreInput.value = paciente.nombre;
+        edadInput.value = paciente.edad;
+        ciudadInput.value = paciente.ciudad;
+        activoInput.checked = paciente.activo;
+
+        console.log(paciente);
+    }
+
+    if (e.target.tagName === "BUTTON") {
+        
+        const id = parseInt(e.target.dataset.id);
+
+        pacientes = pacientes.filter(paciente => {
+            return paciente.id !== id;
+        });
+
+        renderizarTabla(pacientes);
+        actualizarIndicadores();
+    }
+
 });
 
 const renderizarTabla = (listaPacientes) => {
@@ -101,7 +126,10 @@ const renderizarTabla = (listaPacientes) => {
                     ? `<span class = "badge badge-activo">Activo</span>` 
                     : `<span class = "badge badge-inactivo">Inactivo</span>`}</td>
                 <td>
-                    <button data-id = "${paciente.id}">
+                    <button class="btn-editar" data-id = "${paciente.id}">
+                        Editar
+                    </button>
+                    <button class="btn-eliminar" data-id = "${paciente.id}">
                         Eliminar
                     </button>
                 </td>
@@ -205,7 +233,10 @@ formulario.addEventListener("submit", (e) => {
     }
 
     const nuevoPaciente = {
-        id: pacientes.length + 1,
+        id: pacientes.length > 0
+        ? Math.max(...pacientes.map(paciente => paciente.id)) + 1
+        : 1,
+
         nombre: nombre,
         edad: edad,
         ciudad: ciudad,

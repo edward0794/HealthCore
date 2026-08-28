@@ -206,3 +206,24 @@ tbody tr:hover{
 #formPaciente button:hover {
     background: #1565C0;
 }
+
+.btn-eliminar {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.btn-eliminar:hover {
+    background-color: #b02a37;
+    transform: translateY(-1px);
+}
+
+.btn-eliminar:active {
+    transform: translateY(0);
+}
