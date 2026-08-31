@@ -208,22 +208,35 @@ tbody tr:hover{
 }
 
 .btn-eliminar {
-    background-color: #dc3545;
+    background-color: #e53935;
     color: white;
     border: none;
     padding: 8px 14px;
     border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
-    font-weight: 600;
-    transition: 0.2s ease;
 }
 
 .btn-eliminar:hover {
-    background-color: #b02a37;
-    transform: translateY(-1px);
+    background-color: #c62828;
 }
 
 .btn-eliminar:active {
     transform: translateY(0);
 }
+
+.btn-editar {
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.btn-editar:hover {
+    background-color: #1976d2;
+}
+

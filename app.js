@@ -42,7 +42,7 @@ const actualizarIndicadores = () => {
     const pacientesInactivos = pacientes.filter(
         paciente => !paciente.activo
     ).length;
-    
+
     const totalEdades = pacientes.reduce((acc, paciente) => {
         return acc + paciente.edad;
     }, 0);
@@ -51,7 +51,7 @@ const actualizarIndicadores = () => {
 
     const indicadores = [
         {
-            titulo: "Total pacientes", 
+            titulo: "Total pacientes",
             valor: totalPacientes
         },
         {
@@ -77,7 +77,7 @@ const actualizarIndicadores = () => {
                 <p>${indicador.valor}</p>
             </div>
     `)
-    .join("");
+        .join("");
 
     contenedor.innerHTML = html;
 };
@@ -93,6 +93,8 @@ contenedorTabla.addEventListener("click", (e) => {
         const id = parseInt(e.target.dataset.id);
         const paciente = pacientes.find(paciente => paciente.id === id);
 
+        pacienteEditandoId = id;
+
         nombreInput.value = paciente.nombre;
         edadInput.value = paciente.edad;
         ciudadInput.value = paciente.ciudad;
@@ -101,8 +103,8 @@ contenedorTabla.addEventListener("click", (e) => {
         console.log(paciente);
     }
 
-    if (e.target.tagName === "BUTTON") {
-        
+    if (e.target.classList.contains("btn-eliminar")) {
+
         const id = parseInt(e.target.dataset.id);
 
         pacientes = pacientes.filter(paciente => {
@@ -122,9 +124,9 @@ const renderizarTabla = (listaPacientes) => {
                 <td>${paciente.nombre}</td>
                 <td>${paciente.edad}</td>
                 <td>${paciente.ciudad}</td>
-                <td>${paciente.activo 
-                    ? `<span class = "badge badge-activo">Activo</span>` 
-                    : `<span class = "badge badge-inactivo">Inactivo</span>`}</td>
+                <td>${paciente.activo
+                ? `<span class = "badge badge-activo">Activo</span>`
+                : `<span class = "badge badge-inactivo">Inactivo</span>`}</td>
                 <td>
                     <button class="btn-editar" data-id = "${paciente.id}">
                         Editar
@@ -212,6 +214,8 @@ const edadInput = document.getElementById("edad");
 const ciudadInput = document.getElementById("ciudad");
 const activoInput = document.getElementById("activo");
 
+let pacienteEditandoId = null;
+
 formulario.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -226,7 +230,7 @@ formulario.addEventListener("submit", (e) => {
     if (edad <= 0) {
         alert("Edad no válida")
         return;
-    } 
+    }
     if (ciudad === "") {
         alert("Ciudad no válida")
         return;
@@ -234,8 +238,8 @@ formulario.addEventListener("submit", (e) => {
 
     const nuevoPaciente = {
         id: pacientes.length > 0
-        ? Math.max(...pacientes.map(paciente => paciente.id)) + 1
-        : 1,
+            ? Math.max(...pacientes.map(paciente => paciente.id)) + 1
+            : 1,
 
         nombre: nombre,
         edad: edad,
@@ -243,11 +247,31 @@ formulario.addEventListener("submit", (e) => {
         activo: activoInput.checked
     };
 
-    pacientes.push(nuevoPaciente);
+    if (pacienteEditandoId === null) {
+
+        pacientes.push(nuevoPaciente);
+
+    } else {
+
+        console.log("Pacientes:", pacientes);
+        console.log("ID editando:", pacienteEditandoId);
+
+        const paciente = pacientes.find(
+            paciente => Number(paciente.id) === Number(pacienteEditandoId)
+        );
+
+        console.log("Paciente encontrado:", paciente);
+
+        paciente.nombre = nombre;
+        paciente.edad = edad;
+        paciente.ciudad = ciudad;
+        paciente.activo = activoInput.checked;
+    }
+
     renderizarTabla(pacientes);
     actualizarIndicadores();
     formulario.reset();
-    
+    pacienteEditandoId = null;
 });
 
 //Carga Inicial
