@@ -29,6 +29,20 @@ let pacientes = [
     }
 ];
 
+//Cargar Pacientes al iniciar la aplicacion
+
+const pacientesGuardados = localStorage.getItem("pacientes");
+
+if(pacientesGuardados) {
+    pacientes = JSON.parse(pacientesGuardados);
+}
+
+//LocalStorage
+
+const guardarPacientes = () => {
+    localStorage.setItem("pacientes", JSON.stringify(pacientes));
+}
+
 //Funcion para actualizar indicadores 
 
 const actualizarIndicadores = () => {
@@ -100,19 +114,34 @@ contenedorTabla.addEventListener("click", (e) => {
         ciudadInput.value = paciente.ciudad;
         activoInput.checked = paciente.activo;
 
-        console.log(paciente);
+        btnGuardar.textContent = "Actualizar paciente";
+    
     }
 
     if (e.target.classList.contains("btn-eliminar")) {
 
         const id = parseInt(e.target.dataset.id);
 
-        pacientes = pacientes.filter(paciente => {
-            return paciente.id !== id;
-        });
+        const paciente = pacientes.find(
+          paciente => paciente.id === id
+        );
+        if (!paciente) {
+            return;
+        }
+
+        const confirmar = confirm(
+            `¿Seguro que deseas eliminar a ${paciente.nombre}?`
+        );
+
+        if (!confirmar) {
+            return;
+        };
+
+        pacientes = pacientes.filter(paciente => paciente.id !== id);
 
         renderizarTabla(pacientes);
         actualizarIndicadores();
+        guardarPacientes();
     }
 
 });
@@ -213,8 +242,24 @@ const nombreInput = document.getElementById("nombre");
 const edadInput = document.getElementById("edad");
 const ciudadInput = document.getElementById("ciudad");
 const activoInput = document.getElementById("activo");
+const btnCancelar = document.getElementById("btnCancelar");
+const btnGuardar = document.querySelector("#formPaciente button");
 
 let pacienteEditandoId = null;
+
+const cancelarEdicion = () => {
+
+    formulario.reset();
+
+    pacienteEditandoId = null;
+
+    btnGuardar.textContent = "Guardar paciente";
+};
+
+btnCancelar.addEventListener("click", () => {
+
+    cancelarEdicion();
+});
 
 formulario.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -272,9 +317,11 @@ formulario.addEventListener("submit", (e) => {
     actualizarIndicadores();
     formulario.reset();
     pacienteEditandoId = null;
+    guardarPacientes();
 });
 
 //Carga Inicial
 
 renderizarTabla(pacientes);
 actualizarIndicadores();
+
