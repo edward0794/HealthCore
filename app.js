@@ -191,7 +191,7 @@ buscador.addEventListener("input", () => {
 const btnTodos = document.getElementById("btnTodos")
 const btnActivos = document.getElementById("btnActivos");
 const btnInactivos = document.getElementById("btnInactivos");
-const filtroEstado = "todos";
+let filtroEstado = "todos";
 
 const limpiarBotones = () => {
 
@@ -199,7 +199,6 @@ const limpiarBotones = () => {
     btnActivos.classList.remove("activo");
     btnInactivos.classList.remove("activo");
 };
-
 
 
 //Boton todos
@@ -235,6 +234,11 @@ btnInactivos.addEventListener("click", () => {
 
     renderizarTabla(inactivos);
 });
+
+const actualizarVista = () => {
+    
+    const texto = buscador.value.toLowerCase();
+}
 
 //Formulario
 
