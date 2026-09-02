@@ -200,18 +200,17 @@ const limpiarBotones = () => {
     btnInactivos.classList.remove("activo");
 };
 
+
+
 //Boton todos
-
 btnTodos.addEventListener("click", () => {
-
     limpiarBotones();
-    filtroEstado = "todos";
-    btnTodos.classList.add("activo")
+    filtroEstado = "todos"
+    btnTodos.classList.add("activo");
     renderizarTabla(pacientes);
 });
 
 //Boton activos
-
 btnActivos.addEventListener("click", () => {
 
     limpiarBotones();
@@ -225,7 +224,6 @@ btnActivos.addEventListener("click", () => {
 });
 
 //Boton Inactivos
-
 btnInactivos.addEventListener("click", () => {
 
     limpiarBotones();
