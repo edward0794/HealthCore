@@ -191,7 +191,7 @@ buscador.addEventListener("input", () => {
 const btnTodos = document.getElementById("btnTodos")
 const btnActivos = document.getElementById("btnActivos");
 const btnInactivos = document.getElementById("btnInactivos");
-
+const filtroEstado = "todos";
 
 const limpiarBotones = () => {
 
@@ -203,7 +203,9 @@ const limpiarBotones = () => {
 //Boton todos
 
 btnTodos.addEventListener("click", () => {
-    limpiarBotones()
+
+    limpiarBotones();
+    filtroEstado = "todos";
     btnTodos.classList.add("activo")
     renderizarTabla(pacientes);
 });
@@ -211,9 +213,10 @@ btnTodos.addEventListener("click", () => {
 //Boton activos
 
 btnActivos.addEventListener("click", () => {
+
     limpiarBotones();
     btnActivos.classList.add("activo")
-
+    filtroEstado = "activos";
     const activos = pacientes.filter(paciente => {
         return paciente.activo;
     });
@@ -224,9 +227,10 @@ btnActivos.addEventListener("click", () => {
 //Boton Inactivos
 
 btnInactivos.addEventListener("click", () => {
+
     limpiarBotones();
     btnInactivos.classList.add("activo");
-
+    filtroEstado = "inactivos"
     const inactivos = pacientes.filter(paciente => {
         return !paciente.activo;
     });
