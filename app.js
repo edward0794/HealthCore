@@ -238,6 +238,23 @@ btnInactivos.addEventListener("click", () => {
 const actualizarVista = () => {
     
     const texto = buscador.value.toLowerCase();
+
+    let resultados;
+
+    if (filtroEstado === "todos") {
+
+        resultados = pacientes;
+    }
+
+    if (filtroEstado === "activos") {
+
+        resultados = pacientes.filter(paciente => paciente.activo);
+    }
+
+    if (filtroEstado === "inactivos") {
+
+        resultados = pacientes.filter(paciente => !paciente.activo);
+    }
 }
 
 //Formulario
