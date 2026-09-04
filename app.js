@@ -206,7 +206,7 @@ btnTodos.addEventListener("click", () => {
     limpiarBotones();
     filtroEstado = "todos"
     btnTodos.classList.add("activo");
-    renderizarTabla(pacientes);
+    actualizarVista();
 });
 
 //Boton activos
@@ -215,11 +215,8 @@ btnActivos.addEventListener("click", () => {
     limpiarBotones();
     btnActivos.classList.add("activo")
     filtroEstado = "activos";
-    const activos = pacientes.filter(paciente => {
-        return paciente.activo;
-    });
-
-    renderizarTabla(activos);
+    actualizarVista();
+    
 });
 
 //Boton Inactivos
@@ -228,11 +225,7 @@ btnInactivos.addEventListener("click", () => {
     limpiarBotones();
     btnInactivos.classList.add("activo");
     filtroEstado = "inactivos"
-    const inactivos = pacientes.filter(paciente => {
-        return !paciente.activo;
-    });
-
-    renderizarTabla(inactivos);
+    actualizarVista();
 });
 
 const actualizarVista = () => {
@@ -255,6 +248,12 @@ const actualizarVista = () => {
 
         resultados = pacientes.filter(paciente => !paciente.activo);
     }
+
+    resultados = resultados.filter(paciente => {
+        return paciente.nombre.toLowerCase().includes(texto);
+    });
+
+    renderizarTabla(resultados);
 }
 
 //Formulario
